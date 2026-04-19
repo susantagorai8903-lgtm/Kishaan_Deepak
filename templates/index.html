@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kishaan Deepak</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       LANGUAGE SWITCHER
+    ═══════════════════════════════════════════ */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+      position: relative;
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 22px;
+      padding: 6px 14px 6px 10px;
+      cursor: pointer;
+      color: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.13);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    .lang-flag {
+      font-size: 17px;
+      line-height: 1;
+    }
+    .lang-label {
+      font-family: inherit;
+      font-size: 13px;
+    }
+    .lang-chevron {
+      margin-left: 2px;
+      opacity: 0.6;
+      transition: transform 0.2s;
+    }
+    .lang-switcher.open .lang-chevron { transform: rotate(180deg); }
+
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #1a2217;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 14px;
+      padding: 6px;
+      z-index: 9999;
+      min-width: 180px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    }
+    .lang-switcher.open .lang-dropdown { display: block; }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      color: inherit;
+    }
+    .lang-option:hover { background: rgba(255,255,255,0.07); }
+    .lang-option.active { background: rgba(120,200,100,0.15); }
+
+    .lang-option-name {
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+    }
+    .lang-option-native {
+      font-size: 12px;
+      opacity: 0.6;
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ═══════════════════════════════════════════
+       FONT OVERRIDES PER LANGUAGE
+    ═══════════════════════════════════════════ */
+    html[lang="hi"],
+    html[lang="hi"] body,
+    html[lang="hi"] .hero-title,
+    html[lang="hi"] .hero-sub,
+    html[lang="hi"] .ph-title,
+    html[lang="hi"] .ph-desc,
+    html[lang="hi"] .flabel,
+    html[lang="hi"] .run-btn,
+    html[lang="hi"] .nav-title,
+    html[lang="hi"] .empty-h,
+    html[lang="hi"] .empty-p,
+    html[lang="hi"] .pane-label,
+    html[lang="hi"] button {
+      font-family: 'Noto Sans Devanagari', 'DM Sans', sans-serif;
+    }
+
+    html[lang="bn"],
+    html[lang="bn"] body,
+    html[lang="bn"] .hero-title,
+    html[lang="bn"] .hero-sub,
+    html[lang="bn"] .ph-title,
+    html[lang="bn"] .ph-desc,
+    html[lang="bn"] .flabel,
+    html[lang="bn"] .run-btn,
+    html[lang="bn"] .nav-title,
+    html[lang="bn"] .empty-h,
+    html[lang="bn"] .empty-p,
+    html[lang="bn"] .pane-label,
+    html[lang="bn"] button {
+      font-family: 'Noto Sans Bengali', 'DM Sans', sans-serif;
+    }
+
+    html[lang="ur"],
+    html[lang="ur"] body,
+    html[lang="ur"] .hero-title,
+    html[lang="ur"] .hero-sub,
+    html[lang="ur"] .ph-title,
+    html[lang="ur"] .ph-desc,
+    html[lang="ur"] .flabel,
+    html[lang="ur"] .run-btn,
+    html[lang="ur"] .nav-title,
+    html[lang="ur"] .empty-h,
+    html[lang="ur"] .empty-p,
+    html[lang="ur"] .pane-label,
+    html[lang="ur"] button {
+      font-family: 'Noto Nastaliq Urdu', 'DM Sans', sans-serif;
+    }
+
+    /* RTL for Urdu */
+    html[dir="rtl"] .nav-inner { flex-direction: row-reverse; }
+    html[dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+    html[dir="rtl"] .hero-inner { flex-direction: row-reverse; }
+    html[dir="rtl"] .twin-panel { flex-direction: row-reverse; }
+    html[dir="rtl"] .ph-left { flex-direction: row-reverse; }
+    html[dir="rtl"] .pane-label-row { flex-direction: row-reverse; }
+    html[dir="rtl"] .fcols { flex-direction: row-reverse; }
+    html[dir="rtl"] .fbox { text-align: right; }
+    html[dir="rtl"] .fsel, html[dir="rtl"] .finp { text-align: right; direction: rtl; }
+    html[dir="rtl"] .hero-chips { justify-content: flex-end; }
+    html[dir="rtl"] .chat-input-area { flex-direction: row-reverse; }
+    html[dir="rtl"] #chat-messages .chat-msg.user { flex-direction: row; }
+    html[dir="rtl"] #chat-messages .chat-msg.bot { flex-direction: row-reverse; }
+    html[dir="rtl"] .footer-inner { flex-direction: row-reverse; }
+    html[dir="rtl"] .footer-brand { flex-direction: row-reverse; }
+    html[dir="rtl"] .hero-eyebrow { flex-direction: row-reverse; }
+    html[dir="rtl"] .nav-brand { flex-direction: row-reverse; }
+    html[dir="rtl"] .nav-tabs { flex-direction: row-reverse; }
+    html[dir="rtl"] .nav-status { flex-direction: row-reverse; }
+    html[dir="rtl"] .res-badge { flex-direction: row-reverse; }
+    html[dir="rtl"] .conf-row { flex-direction: row-reverse; }
+
+    /* Bigger font for Urdu Nastaliq script readability */
+    html[lang="ur"] .hero-title { font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: 1.5; }
+    html[lang="ur"] .hero-sub   { font-size: 1rem; line-height: 1.9; }
+    html[lang="ur"] .ph-title   { font-size: 1.15rem; }
+    html[lang="ur"] .ph-desc    { font-size: 0.88rem; line-height: 1.8; }
+    html[lang="ur"] .flabel     { font-size: 0.85rem; }
+    html[lang="bn"] .hero-title { font-size: clamp(1.8rem, 4vw, 3rem); }
+
+    /* Nav layout fix */
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Ensure lang-switcher is always accessible in nav */
+    @media (max-width: 700px) {
+      .lang-switcher { order: 4; width: 100%; justify-content: flex-end; }
+      .lang-btn { font-size: 12px; padding: 5px 10px 5px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="bg-radial"></div>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-logo-wrap">
+        <img src="/static/favicon.ico" alt="Kishaan Deepak" class="nav-logo" />
+      </div>
+      <div class="nav-brand-text">
+        <span class="nav-title">Kishaan Deepak</span>
+        <span class="nav-tagline" data-i18n="nav_tagline">Crop Intelligence</span>
+      </div>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="yield">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span data-i18n="tab_yield">Crop Yield</span>
+      </button>
+      <button class="tab-btn" data-tab="disease">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span data-i18n="tab_disease">Disease Detection</span>
+      </button>
+    </div>
+
+    <div class="nav-status">
+      <span class="status-pip" id="status-pip"></span>
+      <span class="status-label" id="status-label" data-i18n="status_connecting">Connecting…</span>
+    </div>
+
+    <!-- ── LANGUAGE SWITCHER ── -->
+    <div class="lang-switcher" id="lang-switcher">
+      <button class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false">
+        <span class="lang-flag" id="lang-flag">🇮🇳</span>
+        <span class="lang-label" id="lang-label">English</span>
+        <svg class="lang-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="lang-dropdown" role="listbox" id="lang-dropdown">
+        <button class="lang-option active" data-lang="en" data-dir="ltr" role="option">
+          <span class="lang-flag">🇬🇧</span>
+          <div>
+            <span class="lang-option-name">English</span>
+            <span class="lang-option-native">English</span>
+          </div>
+        </button>
+        <button class="lang-option" data-lang="hi" data-dir="ltr" role="option">
+          <span class="lang-flag">🇮🇳</span>
+          <div>
+            <span class="lang-option-name">Hindi</span>
+            <span class="lang-option-native">हिन्दी</span>
+          </div>
+        </button>
+        <button class="lang-option" data-lang="bn" data-dir="ltr" role="option">
+          <span class="lang-flag">🇧🇩</span>
+          <div>
+            <span class="lang-option-name">Bengali</span>
+            <span class="lang-option-native">বাংলা</span>
+          </div>
+        </button>
+        <button class="lang-option" data-lang="ur" data-dir="rtl" role="option">
+          <span class="lang-flag">🇵🇰</span>
+          <div>
+            <span class="lang-option-name">Urdu</span>
+            <span class="lang-option-native">اردو</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-pip"></span>
+       <!-- <span data-i18n="hero_eyebrow">AI-Powered Agricultural Intelligence</span>
+      </div>
+      <h1 class="hero-title"><span data-i18n="hero_title_line1">Smarter Farming</span><br/><em data-i18n="hero_title_line2">Starts Here</em></h1>
+      <p class="hero-sub" data-i18n="hero_sub">Predict crop yields &amp; diagnose paddy diseases in seconds — powered by ML trained on Indian agricultural data.</p>-->
+      <div class="hero-chips">
+        <!-- <span class="hero-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="chip1">Linear Regression</span></span>
+        <span class="hero-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="chip2">HOG Features</span></span>
+        <span class="hero-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="chip3">10 Disease Classes</span></span> -->
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-logo-frame">
+        <div class="logo-halo"></div>
+        <!-- <img src="/static/logo.png" alt="" class="hero-logo" /> -->
+      </div>
+      <!-- <div class="hero-model-pills">
+        <div class="model-pill">
+          <span class="model-dot yield-dot"></span>
+          <span class="model-name" data-i18n="model_yield">Yield Model</span>
+          <span class="model-status" id="stat-yield-hero">—</span>
+        </div>
+        <div class="model-pill">
+          <span class="model-dot disease-dot"></span>
+          <span class="model-name" data-i18n="model_disease">Disease Model</span>
+          <span class="model-status" id="stat-disease-hero">—</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN ────────────────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- ══════════ YIELD TAB ══════════ -->
+  <section class="tab-panel active" id="tab-yield">
+    <div class="panel-header">
+      <div class="ph-left">
+        <div class="ph-icon yield-ph-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <h2 class="ph-title" data-i18n="yield_title">Crop Yield Prediction</h2>
+          <p class="ph-desc" data-i18n="yield_desc">Forecast output from agro-climatic conditions</p>
+        </div>
+      </div>
+      <span class="ph-tag yield-tag" data-i18n="yield_tag">Regression Model</span>
+    </div>
+
+    <div class="twin-panel">
+
+      <!-- Form -->
+      <div class="pane">
+        <div class="pane-label-row">
+          <span class="pane-label" data-i18n="yield_input_label">Input Parameters</span>
+          <span class="pane-hint" data-i18n="yield_all_required">All fields required</span>
+        </div>
+
+        <form id="yield-form" autocomplete="off">
+
+          <div class="fgroup">
+            <div class="fcols two">
+              <div class="fbox">
+                <label class="flabel" data-i18n="field_crop_type">Crop Type</label>
+                <div class="sel-wrap">
+                  <select name="crop_type" id="yield-crop" class="fsel" required>
+                    <option value="" data-i18n="sel_crop_placeholder">Select crop…</option>
+                  </select>
+                  <svg class="sel-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </div>
+              <div class="fbox">
+                <label class="flabel" data-i18n="field_region">Region / State</label>
+                <div class="sel-wrap">
+                  <select name="region" id="yield-region" class="fsel" required>
+                    <option value="" data-i18n="sel_region_placeholder">Select region…</option>
+                  </select>
+                  <svg class="sel-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fgroup">
+            <div class="fgroup-title" data-i18n="climate_conditions">Climate Conditions</div>
+            <div class="fcols three">
+              <div class="fbox">
+                <label class="flabel" data-i18n="field_temp">Temperature</label>
+                <div class="inp-wrap">
+                  <input type="number" name="temperature_c" class="finp" step="0.1" placeholder="28.5" required />
+                  <span class="inp-unit">°C</span>
+                </div>
+              </div>
+              <div class="fbox">
+                <label class="flabel" data-i18n="field_rainfall">Rainfall</label>
+                <div class="inp-wrap">
+                  <input type="number" name="rainfall_mm" class="finp" step="0.1" placeholder="650" required />
+                  <span class="inp-unit">mm</span>
+                </div>
+              </div>
+              <div class="fbox">
+                <label class="flabel" data-i18n="field_humidity">Humidity</label>
+                <div class="inp-wrap">
+                  <input type="number" name="humidity_percent" class="finp" step="0.1" min="0" max="100" placeholder="65" required />
+                  <span class="inp-unit">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fgroup">
+            <div class="fbox">
+              <label class="flabel" data-i18n="field_soil">Soil Type</label>
+              <div class="sel-wrap">
+                <select name="soil_type" id="yield-soil" class="fsel" required>
+                  <option value="" data-i18n="sel_soil_placeholder">Select soil type…</option>
+                </select>
+                <svg class="sel-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="run-btn yield-run" id="yield-submit-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="btn_run_prediction">Run Prediction</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Result -->
+      <div class="pane result-pane" id="yield-result-card">
+        <div id="yield-placeholder" class="empty-state">
+          <div class="empty-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <p class="empty-h" data-i18n="yield_empty_h">No prediction yet</p>
+          <p class="empty-p" data-i18n="yield_empty_p">Configure parameters &amp; run a prediction to see results here.</p>
+        </div>
+
+        <div id="yield-result-content" hidden class="res-inner">
+          <div class="res-badge yield-res-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="yield_complete">Prediction Complete</span>
+          </div>
+          <div class="big-num-block">
+            <span class="big-num" id="yield-number">—</span>
+            <div class="big-num-meta">
+              <span class="big-unit">t/ha</span>
+              <span class="big-label" data-i18n="tonnes_per_ha">Tonnes per Hectare</span>
+            </div>
+          </div>
+          <div class="res-meta" id="yield-details"></div>
+          <button class="ghost-btn" id="yield-reset-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+            <span data-i18n="btn_new_prediction">New Prediction</span>
+          </button>
+        </div>
+
+        <div id="yield-error" hidden class="error-state">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p class="error-msg" id="yield-error-msg"></p>
+          <button class="ghost-btn" id="yield-error-reset" data-i18n="btn_try_again">Try Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ DISEASE TAB ══════════ -->
+  <section class="tab-panel" id="tab-disease">
+    <div class="panel-header">
+      <div class="ph-left">
+        <div class="ph-icon disease-ph-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div>
+          <h2 class="ph-title" data-i18n="disease_title">Paddy Disease Detection</h2>
+          <p class="ph-desc" data-i18n="disease_desc">Upload a rice leaf photo for instant AI diagnosis</p>
+        </div>
+      </div>
+      <span class="ph-tag disease-tag" data-i18n="disease_tag">HOG + Logistic Reg</span>
+    </div>
+
+    <div class="twin-panel">
+
+      <!-- Upload -->
+      <div class="pane">
+        <div class="pane-label-row">
+          <span class="pane-label" data-i18n="upload_label">Leaf Image Upload</span>
+          <span class="pane-hint" data-i18n="upload_hint">PNG · JPG · max 16 MB</span>
+        </div>
+
+        <div class="upload-zone" id="upload-zone">
+          <input type="file" id="disease-file" accept=".jpg,.jpeg,.png" hidden />
+          <div class="upload-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <p class="upload-main" data-i18n="upload_main">Drop your image here</p>
+          <p class="upload-sub"><span data-i18n="upload_or">or</span> <span class="upload-cta" data-i18n="upload_browse">browse files</span></p>
+        </div>
+
+        <div class="preview-wrap" id="image-preview-wrap" hidden>
+          <img id="image-preview" class="preview-img" alt="Uploaded leaf" />
+          <button class="remove-btn" id="remove-img">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <button class="run-btn disease-run" id="disease-submit-btn" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span data-i18n="btn_analyse">Analyse Disease</span>
+        </button>
+
+        <details class="classes-ref">
+          <summary>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="supported_diseases">Supported disease classes</span>
+          </summary>
+          <div class="classes-grid" id="classes-grid">
+            <span class="class-chip" data-i18n="loading">Loading…</span>
+          </div>
+        </details>
+      </div>
+
+      <!-- Result -->
+      <div class="pane result-pane" id="disease-result-card">
+        <div id="disease-placeholder" class="empty-state">
+          <div class="empty-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
+          <p class="empty-h" data-i18n="disease_empty_h">Awaiting image</p>
+          <p class="empty-p" data-i18n="disease_empty_p">Upload a paddy leaf photo to get an instant disease diagnosis.</p>
+        </div>
+
+        <div id="disease-result-content" hidden class="res-inner">
+          <div class="res-badge disease-res-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="analysis_complete">Analysis Complete</span>
+          </div>
+
+          <div id="disease-img-box" class="diag-img-box"></div>
+
+          <div class="diag-result-card">
+            <span class="diag-disease-name" id="diag-disease">—</span>
+            <div class="conf-row">
+              <span class="conf-label-txt" data-i18n="confidence">Confidence</span>
+              <span class="conf-pct-txt" id="conf-pct">—</span>
+            </div>
+            <div class="conf-track">
+              <div class="conf-fill" id="conf-bar"></div>
+            </div>
+          </div>
+
+          <div class="probs-wrap">
+            <div class="probs-label" data-i18n="all_probs">All Probabilities</div>
+            <div class="prob-chart" id="prob-chart"></div>
+          </div>
+
+          <button class="ghost-btn" id="disease-reset-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+            <span data-i18n="btn_analyse_another">Analyse Another</span>
+          </button>
+        </div>
+
+        <div id="disease-error" hidden class="error-state">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p class="error-msg" id="disease-error-msg"></p>
+          <button class="ghost-btn" id="disease-error-reset" data-i18n="btn_try_again">Try Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/static/logo.png" alt="" class="footer-logo" />
+      <span>Kishaan Deepak</span>
+    </div>
+    <p class="footer-copy" data-i18n="footer_copy">AI-Powered Crop Intelligence</p>
+  </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+
+<!-- ── CHATBOT WIDGET ─────────────────────────────────────────────── -->
+<button id="chat-toggle" aria-label="Open chat">
+  <span class="chat-icon-open">
+    <img src="/static/logo.png" alt="Chat" class="chat-toggle-img" />
+  </span>
+  <span class="chat-icon-close">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </span>
+  <span id="chat-badge"></span>
+</button>
+
+<div id="chat-window" role="dialog" aria-label="Kishaan Deepak Assistant">
+  <div class="chat-header">
+    <div class="chat-header-avatar">
+      <img src="/static/logo.png" alt="Kishaan Deepak" />
+    </div>
+    <div class="chat-header-text">
+      <div class="chat-header-name" data-i18n="chat_header_name">Ramu</div>
+      <!--<div class="chat-header-sub" data-i18n="chat_header_sub">Crop &amp; disease support · AI</div>-->
+    </div>
+    <div class="chat-online-dot"></div>
+    <button class="chat-close-btn" id="chat-close" aria-label="Close chat">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="chat-messages" id="chat-messages"></div>
+
+  <div class="chat-suggestions" id="chat-suggestions">
+    <button class="suggestion-chip" data-i18n-msg="chat_sug1_msg" data-i18n="chat_sug1_label">Predict yield</button>
+    <button class="suggestion-chip" data-i18n-msg="chat_sug2_msg" data-i18n="chat_sug2_label">Disease detection</button>
+    <button class="suggestion-chip" data-i18n-msg="chat_sug3_msg" data-i18n="chat_sug3_label">Monsoon crops</button>
+    <button class="suggestion-chip" data-i18n-msg="chat_sug4_msg" data-i18n="chat_sug4_label">Soil health</button>
+  </div>
+
+  <div class="chat-input-area">
+    <textarea id="chat-input" rows="1" data-i18n-placeholder="chat_placeholder" placeholder="Ask about crops, diseases, yield…" aria-label="Chat message"></textarea>
+    <button id="chat-send" disabled aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script src="/static/js/chatbot.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MULTILINGUAL ENGINE
+═══════════════════════════════════════════════════════════════ -->
+<script>
+/* ──────────────────────────────────────────────────────
+   TRANSLATIONS
+   Each key maps to: { en, hi, bn, ur }
+────────────────────────────────────────────────────── */
+const I18N = {
+  nav_tagline: {
+    en: "Crop Intelligence",
+    hi: "फसल बुद्धिमत्ता",
+    bn: "ফসল বুদ্ধিমত্তা",
+    ur: "فصل ذہانت"
+  },
+  tab_yield: {
+    en: "Crop Yield",
+    hi: "फसल उपज",
+    bn: "ফসলের ফলন",
+    ur: "فصل کی پیداوار"
+  },
+  tab_disease: {
+    en: "Disease Detection",
+    hi: "बीमारी पहचान",
+    bn: "রোগ সনাক্তকরণ",
+    ur: "بیماری کی تشخیص"
+  },
+  status_connecting: {
+    en: "Connecting…",
+    hi: "जोड़ रहे हैं…",
+    bn: "সংযুক্ত হচ্ছে…",
+    ur: "جوڑ رہے ہیں…"
+  },
+  status_ready: {
+    en: "All systems ready",
+    hi: "सब कुछ तैयार है",
+    bn: "সব সিস্টেম প্রস্তুত",
+    ur: "سب کچھ تیار ہے"
+  },
+  status_partial: {
+    en: "Partial models loaded",
+    hi: "कुछ मॉडल लोड हुए",
+    bn: "আংশিক মডেল লোড হয়েছে",
+    ur: "کچھ ماڈل لوڈ ہوئے"
+  },
+  status_error: {
+    en: "Models not loaded",
+    hi: "मॉडल लोड नहीं हुए",
+    bn: "মডেল লোড হয়নি",
+    ur: "ماڈل لوڈ نہیں ہوئے"
+  },
+  status_unreachable: {
+    en: "Server unreachable",
+    hi: "सर्वर से कनेक्ट नहीं हो पाया",
+    bn: "সার্ভারে পৌঁছানো যাচ্ছে না",
+    ur: "سرور تک رسائی نہیں"
+  },
+  hero_eyebrow: {
+    en: "AI-Powered Agricultural Intelligence",
+    hi: "AI द्वारा संचालित कृषि बुद्धिमत्ता",
+    bn: "AI-চালিত কৃষি বুদ্ধিমত্তা",
+    ur: "AI سے چلنے والی زرعی ذہانت"
+  },
+  hero_title_line1: {
+    en: "Smarter Farming",
+    hi: "समझदार खेती",
+    bn: "বুদ্ধিমান চাষাবাদ",
+    ur: "ہوشیار کھیتی"
+  },
+  hero_title_line2: {
+    en: "Starts Here",
+    hi: "यहाँ से शुरू होती है",
+    bn: "এখান থেকে শুরু",
+    ur: "یہاں سے شروع"
+  },
+  hero_sub: {
+    en: "Predict crop yields & diagnose paddy diseases in seconds — powered by ML trained on Indian agricultural data.",
+    hi: "धान की बीमारी पहचानें और फसल उत्पादन का अनुमान लगाएं — भारतीय कृषि डेटा पर प्रशिक्षित ML द्वारा।",
+    bn: "ধানের রোগ শনাক্ত করুন ও ফসলের ফলন অনুমান করুন — ভারতীয় কৃষি ডেটায় প্রশিক্ষিত ML দিয়ে।",
+    ur: "چاول کی بیماریاں پہچانیں اور فصل کی پیداوار کا اندازہ لگائیں — ہندوستانی زرعی ڈیٹا پر تربیت یافتہ ML سے۔"
+  },
+  chip1: {
+    en: "Linear Regression",
+    hi: "रेखीय प्रतिगमन",
+    bn: "লিনিয়ার রিগ্রেশন",
+    ur: "لکیری تراجع"
+  },
+  chip2: {
+    en: "HOG Features",
+    hi: "HOG विशेषताएं",
+    bn: "HOG বৈশিষ্ট্য",
+    ur: "HOG خصوصیات"
+  },
+  chip3: {
+    en: "10 Disease Classes",
+    hi: "10 बीमारी प्रकार",
+    bn: "১০টি রোগের শ্রেণী",
+    ur: "۱۰ بیماریوں کی اقسام"
+  },
+  model_yield: {
+    en: "Yield Model",
+    hi: "उपज मॉडल",
+    bn: "ফলন মডেল",
+    ur: "پیداوار ماڈل"
+  },
+  model_disease: {
+    en: "Disease Model",
+    hi: "बीमारी मॉडल",
+    bn: "রোগ মডেল",
+    ur: "بیماری ماڈل"
+  },
+  yield_title: {
+    en: "Crop Yield Prediction",
+    hi: "फसल उपज पूर्वानुमान",
+    bn: "ফসলের ফলন পূর্বাভাস",
+    ur: "فصل کی پیداوار کا اندازہ"
+  },
+  yield_desc: {
+    en: "Forecast output from agro-climatic conditions",
+    hi: "मौसम और जलवायु के अनुसार फसल उत्पादन का अनुमान",
+    bn: "কৃষি-জলবায়ু পরিস্থিতি থেকে ফলন পূর্বাভাস",
+    ur: "موسمی حالات کے مطابق فصل کی پیداوار کا اندازہ"
+  },
+  yield_tag: {
+    en: "Regression Model",
+    hi: "रिग्रेशन मॉडल",
+    bn: "রিগ্রেশন মডেল",
+    ur: "ریگریشن ماڈل"
+  },
+  yield_input_label: {
+    en: "Input Parameters",
+    hi: "जानकारी भरें",
+    bn: "তথ্য দিন",
+    ur: "معلومات بھریں"
+  },
+  yield_all_required: {
+    en: "All fields required",
+    hi: "सभी खाने जरूरी हैं",
+    bn: "সব তথ্য দেওয়া আবশ্যক",
+    ur: "تمام خانے ضروری ہیں"
+  },
+  field_crop_type: {
+    en: "Crop Type",
+    hi: "फसल का प्रकार",
+    bn: "ফসলের ধরন",
+    ur: "فصل کی قسم"
+  },
+  sel_crop_placeholder: {
+    en: "Select crop…",
+    hi: "फसल चुनें…",
+    bn: "ফসল বেছে নিন…",
+    ur: "فصل منتخب کریں…"
+  },
+  field_region: {
+    en: "Region / State",
+    hi: "क्षेत्र / राज्य",
+    bn: "অঞ্চল / রাজ্য",
+    ur: "علاقہ / ریاست"
+  },
+  sel_region_placeholder: {
+    en: "Select region…",
+    hi: "क्षेत्र चुनें…",
+    bn: "অঞ্চল বেছে নিন…",
+    ur: "علاقہ منتخب کریں…"
+  },
+  climate_conditions: {
+    en: "Climate Conditions",
+    hi: "मौसम की स्थिति",
+    bn: "আবহাওয়ার পরিস্থিতি",
+    ur: "موسمی حالات"
+  },
+  field_temp: {
+    en: "Temperature",
+    hi: "तापमान",
+    bn: "তাপমাত্রা",
+    ur: "درجہ حرارت"
+  },
+  field_rainfall: {
+    en: "Rainfall",
+    hi: "बारिश",
+    bn: "বৃষ্টিপাত",
+    ur: "بارش"
+  },
+  field_humidity: {
+    en: "Humidity",
+    hi: "नमी",
+    bn: "আর্দ্রতা",
+    ur: "نمی"
+  },
+  field_soil: {
+    en: "Soil Type",
+    hi: "मिट्टी का प्रकार",
+    bn: "মাটির ধরন",
+    ur: "مٹی کی قسم"
+  },
+  sel_soil_placeholder: {
+    en: "Select soil type…",
+    hi: "मिट्टी चुनें…",
+    bn: "মাটি বেছে নিন…",
+    ur: "مٹی منتخب کریں…"
+  },
+  btn_run_prediction: {
+    en: "Run Prediction",
+    hi: "अनुमान लगाएं",
+    bn: "পূর্বাভাস দিন",
+    ur: "اندازہ لگائیں"
+  },
+  yield_empty_h: {
+    en: "No prediction yet",
+    hi: "अभी कोई अनुमान नहीं",
+    bn: "এখনো কোনো পূর্বাভাস নেই",
+    ur: "ابھی کوئی اندازہ نہیں"
+  },
+  yield_empty_p: {
+    en: "Configure parameters & run a prediction to see results here.",
+    hi: "जानकारी भरें और अनुमान लगाएं — परिणाम यहाँ दिखेगा।",
+    bn: "তথ্য দিন এবং পূর্বাভাস চালু করুন — ফলাফল এখানে দেখাবে।",
+    ur: "معلومات بھریں اور اندازہ لگائیں — نتیجہ یہاں دکھے گا۔"
+  },
+  yield_complete: {
+    en: "Prediction Complete",
+    hi: "अनुमान तैयार है",
+    bn: "পূর্বাভাস সম্পন্ন",
+    ur: "اندازہ مکمل"
+  },
+  tonnes_per_ha: {
+    en: "Tonnes per Hectare",
+    hi: "टन प्रति हेक्टेयर",
+    bn: "টন প্রতি হেক্টর",
+    ur: "ٹن فی ہیکٹر"
+  },
+  btn_new_prediction: {
+    en: "New Prediction",
+    hi: "नया अनुमान",
+    bn: "নতুন পূর্বাভাস",
+    ur: "نیا اندازہ"
+  },
+  btn_try_again: {
+    en: "Try Again",
+    hi: "दोबारा कोशिश करें",
+    bn: "আবার চেষ্টা করুন",
+    ur: "دوبارہ کوشش کریں"
+  },
+  disease_title: {
+    en: "Paddy Disease Detection",
+    hi: "धान की बीमारी पहचान",
+    bn: "ধানের রোগ সনাক্তকরণ",
+    ur: "دھان کی بیماری کی تشخیص"
+  },
+  disease_desc: {
+    en: "Upload a rice leaf photo for instant AI diagnosis",
+    hi: "धान के पत्ते की फोटो अपलोड करें — AI तुरंत बीमारी बताएगा",
+    bn: "ধানের পাতার ছবি আপলোড করুন — AI তাৎক্ষণিক রোগ নির্ণয় করবে",
+    ur: "دھان کے پتے کی تصویر اپلوڈ کریں — AI فوری بیماری بتائے گا"
+  },
+  disease_tag: {
+    en: "HOG + Logistic Reg",
+    hi: "HOG + लॉजिस्टिक मॉडल",
+    bn: "HOG + লজিস্টিক মডেল",
+    ur: "HOG + لاجسٹک ماڈل"
+  },
+  upload_label: {
+    en: "Leaf Image Upload",
+    hi: "पत्ते की फोटो अपलोड करें",
+    bn: "পাতার ছবি আপলোড করুন",
+    ur: "پتے کی تصویر اپلوڈ کریں"
+  },
+  upload_hint: {
+    en: "PNG · JPG · max 16 MB",
+    hi: "PNG · JPG · अधिकतम 16 MB",
+    bn: "PNG · JPG · সর্বোচ্চ ১৬ MB",
+    ur: "PNG · JPG · زیادہ سے زیادہ 16 MB"
+  },
+  upload_main: {
+    en: "Drop your image here",
+    hi: "यहाँ फोटो छोड़ें",
+    bn: "এখানে ছবি ফেলুন",
+    ur: "یہاں تصویر ڈالیں"
+  },
+  upload_or: {
+    en: "or",
+    hi: "या",
+    bn: "অথবা",
+    ur: "یا"
+  },
+  upload_browse: {
+    en: "browse files",
+    hi: "फाइल चुनें",
+    bn: "ফাইল খুঁজুন",
+    ur: "فائل منتخب کریں"
+  },
+  btn_analyse: {
+    en: "Analyse Disease",
+    hi: "बीमारी जांचें",
+    bn: "রোগ বিশ্লেষণ করুন",
+    ur: "بیماری کی جانچ کریں"
+  },
+  supported_diseases: {
+    en: "Supported disease classes",
+    hi: "पहचानी जाने वाली बीमारियाँ",
+    bn: "সমর্থিত রোগের তালিকা",
+    ur: "پہچانی جانے والی بیماریاں"
+  },
+  loading: {
+    en: "Loading…",
+    hi: "लोड हो रहा है…",
+    bn: "লোড হচ্ছে…",
+    ur: "لوڈ ہو رہا ہے…"
+  },
+  disease_empty_h: {
+    en: "Awaiting image",
+    hi: "फोटो का इंतज़ार है",
+    bn: "ছবির জন্য অপেক্ষা করছে",
+    ur: "تصویر کا انتظار"
+  },
+  disease_empty_p: {
+    en: "Upload a paddy leaf photo to get an instant disease diagnosis.",
+    hi: "धान के पत्ते की फोटो अपलोड करें — तुरंत बीमारी पता चलेगी।",
+    bn: "ধানের পাতার ছবি আপলোড করুন — তাৎক্ষণিক রোগ নির্ণয় পাবেন।",
+    ur: "دھان کے پتے کی تصویر اپلوڈ کریں — فوری بیماری کا نتیجہ ملے گا۔"
+  },
+  analysis_complete: {
+    en: "Analysis Complete",
+    hi: "जांच पूरी हो गई",
+    bn: "বিশ্লেষণ সম্পন্ন",
+    ur: "جانچ مکمل"
+  },
+  confidence: {
+    en: "Confidence",
+    hi: "विश्वसनीयता",
+    bn: "আস্থার মাত্রা",
+    ur: "اعتماد کی سطح"
+  },
+  all_probs: {
+    en: "All Probabilities",
+    hi: "सभी संभावनाएं",
+    bn: "সব সম্ভাবনা",
+    ur: "تمام امکانات"
+  },
+  btn_analyse_another: {
+    en: "Analyse Another",
+    hi: "दूसरी फोटो जांचें",
+    bn: "আরেকটি বিশ্লেষণ করুন",
+    ur: "دوسری تصویر جانچیں"
+  },
+  footer_copy: {
+    en: "AI-Powered Crop Intelligence · Flask + scikit-learn",
+    hi: "AI आधारित फसल बुद्धिमत्ता · Flask + scikit-learn",
+    bn: "AI-চালিত ফসল বুদ্ধিমত্তা · Flask + scikit-learn",
+    ur: "AI سے چلنے والی زرعی ذہانت · Flask + scikit-learn"
+  },
+  chat_header_name: {
+    en: "Kishaan Assistant",
+    hi: "किशान सहायक",
+    bn: "কিষান সহকারী",
+    ur: "کسان معاون"
+  },
+  chat_header_sub: {
+    en: "Crop & disease support · AI",
+    hi: "फसल और बीमारी सहायता · AI",
+    bn: "ফসল ও রোগ সহায়তা · AI",
+    ur: "فصل اور بیماری مدد · AI"
+  },
+  chat_placeholder: {
+    en: "Ask about crops, diseases, yield…",
+    hi: "फसल, बीमारी, उपज के बारे में पूछें…",
+    bn: "ফসল, রোগ, ফলন সম্পর্কে জিজ্ঞেস করুন…",
+    ur: "فصل، بیماری، پیداوار کے بارے میں پوچھیں…"
+  },
+  chat_sug1_label: {
+    en: "Predict yield",
+    hi: "उपज अनुमान",
+    bn: "ফলন পূর্বাভাস",
+    ur: "پیداوار اندازہ"
+  },
+  chat_sug1_msg: {
+    en: "How do I predict crop yield?",
+    hi: "मैं फसल उपज का अनुमान कैसे लगाऊं?",
+    bn: "আমি কিভাবে ফসলের ফলন পূর্বাভাস দেব?",
+    ur: "میں فصل کی پیداوار کا اندازہ کیسے لگاؤں؟"
+  },
+  chat_sug2_label: {
+    en: "Disease detection",
+    hi: "बीमारी पहचान",
+    bn: "রোগ সনাক্তকরণ",
+    ur: "بیماری تشخیص"
+  },
+  chat_sug2_msg: {
+    en: "How does paddy disease detection work?",
+    hi: "धान की बीमारी पहचान कैसे काम करती है?",
+    bn: "ধানের রোগ সনাক্তকরণ কিভাবে কাজ করে?",
+    ur: "دھان کی بیماری کی تشخیص کیسے کام کرتی ہے؟"
+  },
+  chat_sug3_label: {
+    en: "Monsoon crops",
+    hi: "मानसून फसलें",
+    bn: "বর্ষার ফসল",
+    ur: "مانسون فصلیں"
+  },
+  chat_sug3_msg: {
+    en: "Best crops for monsoon season in India?",
+    hi: "भारत में मानसून के लिए सबसे अच्छी फसलें कौन सी हैं?",
+    bn: "ভারতে বর্ষা মৌসুমের জন্য সেরা ফসল কোনগুলো?",
+    ur: "بھارت میں مانسون کے موسم کے لیے بہترین فصلیں کون سی ہیں؟"
+  },
+  chat_sug4_label: {
+    en: "Soil health",
+    hi: "मिट्टी की सेहत",
+    bn: "মাটির স্বাস্থ্য",
+    ur: "مٹی کی صحت"
+  },
+  chat_sug4_msg: {
+    en: "How to improve soil health for paddy?",
+    hi: "धान के लिए मिट्टी की गुणवत्ता कैसे सुधारें?",
+    bn: "ধানের জন্য মাটির স্বাস্থ্য কিভাবে উন্নত করবেন?",
+    ur: "دھان کے لیے مٹی کی صحت کیسے بہتر بنائیں؟"
+  },
+  /* Status messages for the model status — used in JS */
+  stat_ready: {
+    en: "✓ Ready",
+    hi: "✓ तैयार",
+    bn: "✓ প্রস্তুত",
+    ur: "✓ تیار"
+  },
+  stat_not_loaded: {
+    en: "✗ Not loaded",
+    hi: "✗ लोड नहीं हुआ",
+    bn: "✗ লোড হয়নি",
+    ur: "✗ لوڈ نہیں ہوا"
+  },
+  /* main.js dynamic strings */
+  running_prediction: {
+    en: "Running Prediction…",
+    hi: "अनुमान लग रहा है…",
+    bn: "পূর্বাভাস চলছে…",
+    ur: "اندازہ لگ رہا ہے…"
+  },
+  analysing: {
+    en: "Analysing…",
+    hi: "जांच हो रही है…",
+    bn: "বিশ্লেষণ চলছে…",
+    ur: "جانچ ہو رہی ہے…"
+  },
+  unavailable: {
+    en: "Unavailable",
+    hi: "उपलब्ध नहीं",
+    bn: "অনুপলব্ধ",
+    ur: "دستیاب نہیں"
+  },
+  only_png_jpg: {
+    en: "Only PNG or JPG files are allowed.",
+    hi: "केवल PNG या JPG फाइलें मान्य हैं।",
+    bn: "শুধুমাত্র PNG বা JPG ফাইল গ্রহণযোগ্য।",
+    ur: "صرف PNG یا JPG فائلیں قابل قبول ہیں۔"
+  },
+  chat_welcome: {
+    en: "Namaste! 🌾 I'm your Kishaan Deepak assistant. Ask me about crop yield prediction, paddy disease detection, or any farming question!",
+    hi: "नमस्ते! 🌾 मैं आपका किशान दीपक सहायक हूँ। फसल उपज, धान की बीमारी या खेती से जुड़ा कोई भी सवाल पूछें!",
+    bn: "নমস্কার! 🌾 আমি আপনার কিষান দীপক সহকারী। ফসলের ফলন, ধানের রোগ বা যেকোনো কৃষি প্রশ্ন জিজ্ঞেস করুন!",
+    ur: "السلام علیکم! 🌾 میں آپ کا کسان دیپک معاون ہوں۔ فصل کی پیداوار، دھان کی بیماری یا کھیتی سے متعلق کوئی بھی سوال پوچھیں!"
+  }
+};
+
+/* ──────────────────────────────────────────────────────
+   LANGUAGE ENGINE
+────────────────────────────────────────────────────── */
+const LANG_META = {
+  en: { flag: "🇬🇧", label: "English",  dir: "ltr" },
+  hi: { flag: "🇮🇳", label: "हिन्दी",   dir: "ltr" },
+  bn: { flag: "🇧🇩", label: "বাংলা",    dir: "ltr" },
+  ur: { flag: "🇵🇰", label: "اردو",     dir: "rtl" }
+};
+
+let currentLang = localStorage.getItem('kishaan_lang') || 'en';
+
+function t(key) {
+  const obj = I18N[key];
+  if (!obj) return key;
+  return obj[currentLang] || obj['en'] || key;
+}
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('kishaan_lang', lang);
+
+  const meta = LANG_META[lang];
+  const html = document.documentElement;
+  html.setAttribute('lang', lang);
+  html.setAttribute('dir', meta.dir);
+
+  // Update lang button
+  document.getElementById('lang-flag').textContent  = meta.flag;
+  document.getElementById('lang-label').textContent = meta.label;
+
+  // Mark active option
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.lang === lang);
+  });
+
+  // Translate all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+
+  // Translate placeholder attributes
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+
+  // Translate suggestion chip data-msg
+  document.querySelectorAll('[data-i18n-msg]').forEach(el => {
+    el.dataset.msg = t(el.dataset.i18nMsg);
+  });
+}
+
+/* ──────────────────────────────────────────────────────
+   DROPDOWN LOGIC
+────────────────────────────────────────────────────── */
+const langSwitcher = document.getElementById('lang-switcher');
+const langBtn      = document.getElementById('lang-btn');
+const langDropdown = document.getElementById('lang-dropdown');
+
+langBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = langSwitcher.classList.toggle('open');
+  langBtn.setAttribute('aria-expanded', isOpen);
+});
+
+document.addEventListener('click', () => {
+  langSwitcher.classList.remove('open');
+  langBtn.setAttribute('aria-expanded', false);
+});
+
+langDropdown.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const opt = e.target.closest('.lang-option');
+  if (!opt) return;
+  applyLanguage(opt.dataset.lang);
+  langSwitcher.classList.remove('open');
+  langBtn.setAttribute('aria-expanded', false);
+});
+
+/* ──────────────────────────────────────────────────────
+   PATCH main.js DYNAMIC STRINGS
+   We override the functions that produce English text
+   so they respect the current language.
+────────────────────────────────────────────────────── */
+// We defer patching until main.js has run, then monkey-patch via MutationObserver on status-label
+// and override alert / status text via event delegation.
+
+// Patch status label after fetch
+const _origFetch = window.fetch;
+window.fetch = async function(...args) {
+  const resp = await _origFetch.apply(this, args);
+  const url  = typeof args[0] === 'string' ? args[0] : args[0].url || '';
+
+  // We clone and intercept /api/health
+  if (url.includes('/api/health')) {
+    const clone = resp.clone();
+    clone.json().then(d => {
+      const yieldOk   = d.yield_model   === 'loaded';
+      const diseaseOk = d.disease_model === 'loaded';
+      const pip   = document.getElementById('status-pip');
+      const label = document.getElementById('status-label');
+      if (pip && label) {
+        if (yieldOk && diseaseOk) {
+          pip.className     = 'status-pip ok';
+          label.textContent = t('status_ready');
+        } else if (yieldOk || diseaseOk) {
+          pip.className     = 'status-pip warn';
+          label.textContent = t('status_partial');
+        } else {
+          pip.className     = 'status-pip err';
+          label.textContent = t('status_error');
+        }
+        const yH = document.getElementById('stat-yield-hero');
+        const dH = document.getElementById('stat-disease-hero');
+        if (yH) yH.textContent = yieldOk   ? t('stat_ready') : t('stat_not_loaded');
+        if (dH) dH.textContent = diseaseOk ? t('stat_ready') : t('stat_not_loaded');
+      }
+    }).catch(() => {});
+  }
+  return resp;
+};
+
+// Patch window.alert for file type warning
+const _origAlert = window.alert;
+window.alert = function(msg) {
+  if (msg && msg.toLowerCase().includes('png or jpg')) {
+    _origAlert(t('only_png_jpg'));
+  } else {
+    _origAlert(msg);
+  }
+};
+
+// After chatbot.js loads and sets welcome message, re-set it in current language.
+// We wait for DOMContentLoaded + small timeout.
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    // Apply current language (re-run after all scripts loaded)
+    applyLanguage(currentLang);
+
+    // Patch chatbot welcome message if it exists in English
+    const chatMsgs = document.getElementById('chat-messages');
+    if (chatMsgs && chatMsgs.children.length > 0) {
+      const firstBubble = chatMsgs.querySelector('.msg-bubble');
+      if (firstBubble) {
+        const enWelcome = I18N.chat_welcome.en;
+        if (firstBubble.textContent.trim().startsWith('Namaste')) {
+          firstBubble.textContent = t('chat_welcome');
+        }
+      }
+    }
+  }, 200);
+});
+
+/* ──────────────────────────────────────────────────────
+   INITIAL APPLICATION
+────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  applyLanguage(currentLang);
+});
+</script>
+
+</body>
+</html>
